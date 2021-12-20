@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+    <script src="https://unpkg.com/moralis/dist/moralis.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"/>
+    <title>The Miners Nation</title>
+</head>
+<body>
+    <div id="app"></div>
+    <script type="text/babel">
+        class App extends React.Component {
+            btnlogin = () => {
+                async function login() {
+                    let user = Moralis.User.current();
+                    if (!user) {
+                        try {
+                            user = await Moralis.authenticate({ signingMessage: "Hello World!" })
+                            console.log(user)
+                            console.log(user.get('ethAddress'))
+                        } catch (error) {
+                            console.log(error)
+                        }
+                    }
+                }
+                login();
+            }
+            btnlogout = () => {
+                async function logOut() {
+                    await Moralis.User.logOut();
+                    console.log("logged out");
+                }
+                logOut();
+            }
+            render() {
+                return (
+                    <div>
+                        <div className="relative bg-indigo-900">
+                                <div className="flex items-center justify-center py-6">
+                                    <a href="#" className="text-base font-bold text-white hover:text-indigo-300 px-6">
+                                        The Miners Nation
+                                    </a>
+                                    <a href="#" className="text-base font-bold text-white hover:text-indigo-300 px-6">
+                                        Home
+                                    </a>
+                                    <a href="#" className="text-base font-bold text-white hover:text-indigo-300 px-6">
+                                        About
+                                    </a>
+                                    <a href="#" className="text-base font-bold text-white hover:text-indigo-300 px-6">
+                                        How it works
+                                    </a>
+                                    <a href="#" className="text-base font-bold text-white hover:text-indigo-300 px-6">
+                                        Press
+                                    </a>
+                                    <a href="#" className="text-base font-bold text-white hover:text-indigo-300 px-6">
+                                        Request Demo
+                                    </a>
+                                    <a href="#" className="text-base font-bold text-white hover:text-indigo-300 px-6">
+                                        Shop
+                                    </a>
+                                    <a onClick={this.btnlogin} href="#" className="text-base font-bold text-white border border-transparent rounded-md bg-indigo-500 hover:bg-indigo-600 px-4 py-2 ml-6">
+                                        Sign in with MetaMask
+                                    </a>
+                                    <a onClick={this.btnlogout} href="#" className="text-base font-bold text-white border border-transparent rounded-md bg-indigo-500 hover:bg-indigo-600 px-4 py-2 ml-6">
+                                        Log out
+                                    </a>
+                                </div>
+                        </div>
+
+                        <div>
+                            <img src={'whole-rig.gif'}/>
+                        </div>
+
+                        <div className="flex justify-center bg-green-900">
+                            <img src={'virus.png'}/>
+                        </div>
+
+                        <div className="flex justify-center bg-green-900">
+                            <img src={'token.png'}/>
+                        </div>
+
+                        <div className="flex justify-center bg-green-900">
+                            <img src={'mining.png'}/>
+                        </div>
+
+                        <div className="flex justify-center bg-green-900">
+                            <img src={'play.png'}/>
+                        </div>
+
+                        <div className="relative bg-indigo-900">
+                            <div className="flex justify-center mr-8">
+                                <div className="flex items-center py-6">
+                                    <a href="https://www.youtube.com/channel/UCMoV4O5ULbF9VXtQ7K5I3Dg" target="_blank" className="text-base font-bold text-white hover:text-indigo-300 px-6">
+                                        YouTube
+                                    </a>
+                                    <a href="https://theminersnation.medium.com" target="_blank" className="text-base font-bold text-white hover:text-indigo-300 px-6">
+                                        Medium
+                                    </a>
+                                    <a href="https://twitter.com/TheMinersNation" target="_blank" className="text-base font-bold text-white hover:text-indigo-300 px-6">
+                                        Twitter
+                                    </a>
+                                    <a href="https://www.reddit.com/user/theminersnation" target="_blank" className="text-base font-bold text-white hover:text-indigo-300 px-6">
+                                        Reddit
+                                    </a>
+                                    <a href="https://t.me/TheMinersNation" target="_blank" className="text-base font-bold text-white hover:text-indigo-300 px-6">
+                                        Telegram
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )
+            }
+        }
+        ReactDOM.render(<App />, document.getElementById("app"))
+    </script>
+    <script>
+        // Connect to Moralis server
+        const serverUrl = "https://z5qmrdtqvvtw.usemoralis.com:2053/server";
+        const appId = "zUTFaI2aqtIpfEmjsqaCFsAAlUo6mVAoPiLhSRc6";
+        Moralis.start({ serverUrl, appId });
+    </script>
+</body>
+</html>
